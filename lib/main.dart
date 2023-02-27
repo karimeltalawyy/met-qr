@@ -7,16 +7,21 @@ import 'package:metqr/layout/Lecturer_layout/lecturer_layout_screen.dart';
 
 import 'package:metqr/layout/cubit/cubit.dart';
 import 'package:metqr/layout/cubit/states.dart';
+import 'package:metqr/screens/Lecturer/signup/lecturer_signup_screen.dart';
 import 'package:metqr/screens/student/student%20auth/login/login_screen.dart';
 import 'package:metqr/shared/bloc_observer.dart';
 import 'package:metqr/shared/styles/themes.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 
+import 'firebase_options.dart';
 import 'layout/student layout/stu_layout_screen.dart';
 
 void main() async {
   Bloc.observer = MyBlocObserver();
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
@@ -36,7 +41,11 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             theme: lightTheme,
             themeMode: ThemeMode.light,
-            home: const LecturerLayout(),
+            home:  LecturerLoginScreen(),
+
+            // ScreenTypeLayout(
+            //     mobile:const StudentLayoutPage(),
+            //     desktop: const LecturerLayout()),
           );
         },
       ),
