@@ -31,6 +31,7 @@ class AppCubit extends Cubit<AppStates> {
     emit(AppChangeBottomNavState());
   }
 
+
 //   Future createStudent({
 //     required String name,
 //     required String id,

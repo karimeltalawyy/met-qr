@@ -24,6 +24,11 @@ class _DefaultButtonState extends State<DefaultButton> {
   }
 
   @override
+  void initState() {
+
+  }
+
+  @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
@@ -100,11 +105,14 @@ class _DefaultButtonState extends State<DefaultButton> {
       );
 
   Widget buildQRView(BuildContext context) =>
-      QRView(key: qrKey, onQRViewCreated: onQRViewCreated);
+      QRView(key: qrKey, onQRViewCreated: onQRViewCreated,);
 
   void onQRViewCreated(QRViewController controller) {
     setState(() {
       this.controller = controller;
+    });
+    controller.scannedDataStream.listen((scanData) {
+      print('xxxxxxxxx => ${scanData.toString()}');
     });
   }
 }

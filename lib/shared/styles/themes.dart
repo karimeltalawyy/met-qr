@@ -18,7 +18,6 @@ ThemeData lightTheme = ThemeData(
         color: Colors.black,
       ),
     ),
-    primarySwatch: Colors.deepPurple,
     primaryColor: const Color(0xFFF5F1EE),
     scaffoldBackgroundColor: Colors.white,
     appBarTheme: const AppBarTheme(

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:metqr/shared/component/buttons.dart';
-import 'package:metqr/shared/component/constants/constants.dart';
 
-class LecturerLoginScreen extends StatelessWidget {
-  LecturerLoginScreen({Key? key}) : super(key: key);
+import '../../../shared/component/constants/constants.dart';
+
+class LecturerSignUpScreen extends StatelessWidget {
+  LecturerSignUpScreen({Key? key}) : super(key: key);
   var formKey = GlobalKey<FormState>();
 
   @override
@@ -15,12 +16,9 @@ class LecturerLoginScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         centerTitle: false,
-        title: Text(
-          'METQ.',
-          style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                fontWeight: FontWeight.bold,
-                fontSize: 32,
-              ),
+        title: SvgPicture.asset(
+          'assets/images/logo.svg',
+          fit: BoxFit.cover,
         ),
       ),
       body: Row(
@@ -38,7 +36,7 @@ class LecturerLoginScreen extends StatelessWidget {
                     width: MediaQuery.of(context).size.width / 2.2,
                     height: MediaQuery.of(context).size.height / 2,
                     child: SvgPicture.asset(
-                      'assets/images/log.svg',
+                      'assets/images/si.svg',
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -66,11 +64,12 @@ class LecturerLoginScreen extends StatelessWidget {
                         header(context),
                         SizedBox(
                           width: MediaQuery.of(context).size.width / 3.1,
-                          height: MediaQuery.of(context).size.height / 2.6,
+                          height: MediaQuery.of(context).size.height / 2,
                           child: SingleChildScrollView(
-                            physics: const NeverScrollableScrollPhysics(),
+                            // physics: const NeverScrollableScrollPhysics(),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 TextFormField(
                                   validator: (String? val) {
@@ -149,19 +148,111 @@ class LecturerLoginScreen extends StatelessWidget {
                                     border: InputBorder.none,
                                     fillColor: whiteColor,
                                     filled: true,
+                                    hintText: 'full name',
+                                    prefixIcon: const Icon(
+                                      Icons.person_4_outlined,
+                                    ),
+                                    suffixIcon:
+                                    const Icon(Icons.visibility_outlined),
+                                  ),
+                                ),
+                                const SizedBox(height: 22),
+                                TextFormField(
+                                  validator: (String? val) {
+                                    if (val!.isEmpty) {
+                                      return 'invalid cred!';
+                                    }
+                                    return null;
+                                  },
+                                  decoration: InputDecoration(
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(15),
+                                      borderSide: const BorderSide(
+                                        width: 1,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    errorBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(15),
+                                      borderSide: const BorderSide(
+                                          width: 1, color: Colors.red),
+                                    ),
+                                    focusedErrorBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(15),
+                                      borderSide: const BorderSide(
+                                        width: 1,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(15),
+                                      borderSide: const BorderSide(
+                                        width: 1,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    border: InputBorder.none,
+                                    fillColor: whiteColor,
+                                    filled: true,
+                                    hintText: 'phone',
+                                    prefixIcon: const Icon(
+                                      Icons.phone_outlined,
+                                    ),
+                                    suffixIcon:
+                                    const Icon(Icons.visibility_outlined),
+                                  ),
+                                ),
+                                const SizedBox(height: 22),
+                                TextFormField(
+                                  validator: (String? val) {
+                                    if (val!.isEmpty) {
+                                      return 'invalid cred!';
+                                    }
+                                    return null;
+                                  },
+                                  decoration: InputDecoration(
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(15),
+                                      borderSide: const BorderSide(
+                                        width: 1,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    errorBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(15),
+                                      borderSide: const BorderSide(
+                                          width: 1, color: Colors.red),
+                                    ),
+                                    focusedErrorBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(15),
+                                      borderSide: const BorderSide(
+                                        width: 1,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(15),
+                                      borderSide: const BorderSide(
+                                        width: 1,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    border: InputBorder.none,
+                                    fillColor: whiteColor,
+                                    filled: true,
                                     hintText: 'enter your password',
                                     prefixIcon: const Icon(
                                       Icons.lock_outline_rounded,
                                     ),
                                     suffixIcon:
-                                        const Icon(Icons.visibility_outlined),
+                                    const Icon(Icons.visibility_outlined),
                                   ),
                                 ),
                                 const SizedBox(height: 26),
                                 DefaultButtonLecturer(
                                   width:
-                                      MediaQuery.of(context).size.width / 3.1,
-                                  text: 'Login',
+                                  MediaQuery.of(context).size.width / 3.1,
+                                  text: 'Sign up',
                                   onPressed: () {
                                     if (formKey.currentState!.validate()) {
                                       debugPrint('validate');
@@ -189,96 +280,96 @@ class LecturerLoginScreen extends StatelessWidget {
   }
 
   Widget welcomeTextTitle(BuildContext context) => Text(
-        'Welcome back again!',
-        overflow: TextOverflow.ellipsis,
-        maxLines: 2,
-        style: Theme.of(context).textTheme.displaySmall!.copyWith(
-              color: Colors.black87,
-              fontSize: 34,
-              fontWeight: FontWeight.bold,
-            ),
-      );
+    'Create your account.',
+    overflow: TextOverflow.ellipsis,
+    maxLines: 2,
+    style: Theme.of(context).textTheme.displaySmall!.copyWith(
+      color: Colors.black87,
+      fontSize: 34,
+      fontWeight: FontWeight.bold,
+    ),
+  );
 
   Widget textSubTitle(BuildContext context) => Text(
-        'Login to our METQ Platform, login to enjoy our services!',
-        overflow: TextOverflow.ellipsis,
-        maxLines: 2,
-        style: Theme.of(context).textTheme.displaySmall!.copyWith(
-              color: Colors.black87,
-              fontSize: 16,
-              fontWeight: FontWeight.normal,
-            ),
-      );
+    'Login to our METQ Platform, login to enjoy our services!',
+    overflow: TextOverflow.ellipsis,
+    maxLines: 2,
+    style: Theme.of(context).textTheme.displaySmall!.copyWith(
+      color: Colors.black87,
+      fontSize: 16,
+      fontWeight: FontWeight.normal,
+    ),
+  );
 
   Widget onBoardingTitle(BuildContext context) => Text(
-        'Enjoy our several features!',
-        overflow: TextOverflow.ellipsis,
-        maxLines: 2,
-        textAlign: TextAlign.center,
-        style: Theme.of(context).textTheme.displaySmall!.copyWith(
-              color: Colors.black87,
-              fontSize: 26,
-              fontWeight: FontWeight.bold,
-            ),
-      );
+    'Enjoy our several features!',
+    overflow: TextOverflow.ellipsis,
+    maxLines: 2,
+    textAlign: TextAlign.center,
+    style: Theme.of(context).textTheme.displaySmall!.copyWith(
+      color: Colors.black87,
+      fontSize: 26,
+      fontWeight: FontWeight.bold,
+    ),
+  );
 
   Widget onBoardingSubTitle(BuildContext context) => Text(
-        'Through our platform, you can easily track the activity of your students.',
-        overflow: TextOverflow.ellipsis,
-        maxLines: 2,
-        textAlign: TextAlign.center,
-        style: Theme.of(context).textTheme.displaySmall!.copyWith(
-              color: Colors.black87,
-              fontSize: 16,
-              fontWeight: FontWeight.normal,
-            ),
-      );
+    'Through our platform, you can easily track the activity of your students.',
+    overflow: TextOverflow.ellipsis,
+    maxLines: 2,
+    textAlign: TextAlign.center,
+    style: Theme.of(context).textTheme.displaySmall!.copyWith(
+      color: Colors.black87,
+      fontSize: 16,
+      fontWeight: FontWeight.normal,
+    ),
+  );
 
   Widget header(BuildContext context) => Container(
-        padding: const EdgeInsets.only(top: 60),
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height / 2.4,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              flex: 1,
-              child: welcomeTextTitle(context),
-            ),
-            Expanded(
-              flex: 5,
-              child: textSubTitle(context),
-            ),
-          ],
+    padding: const EdgeInsets.only(top: 60),
+    width: MediaQuery.of(context).size.width,
+    height: MediaQuery.of(context).size.height / 2.4,
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
+          flex: 1,
+          child: welcomeTextTitle(context),
         ),
-      );
+        Expanded(
+          flex: 5,
+          child: textSubTitle(context),
+        ),
+      ],
+    ),
+  );
 
   Widget signUpTextButton(BuildContext context) => SizedBox(
-        width: MediaQuery.of(context).size.width / 3.1,
-        height: 40,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Expanded(
-              child: RichText(
-                text: TextSpan(
-                  children: [
-                    TextSpan(
-                      text: 'Doesn\'t have an account yet? ',
-                      style: Theme.of(context).textTheme.labelLarge,
-                    ),
-                    TextSpan(
-                      text: 'Sign up',
-                      style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                            decoration: TextDecoration.underline,
-                          ),
-                    ),
-                  ],
+    width: MediaQuery.of(context).size.width / 3.1,
+    height: 40,
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Expanded(
+          child: RichText(
+            text: TextSpan(
+              children: [
+                TextSpan(
+                  text: 'Doesn\'t have an account yet? ',
+                  style: Theme.of(context).textTheme.labelLarge,
                 ),
-              ),
+                TextSpan(
+                  text: 'Sign up',
+                  style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                    decoration: TextDecoration.underline,
+                  ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
-      );
+      ],
+    ),
+  );
 }
