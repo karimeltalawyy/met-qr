@@ -15,5 +15,8 @@ const chipTwoColor = Color(0xFFFFEED4);
 const chipTwoTextColor = Color(0xFFC49047);
 const cardAttendColor = Color(0xFF111624);
 const surfaceColorOpacity = Color(0xFFFFEED4);
+const toastColor = Color(0xFFFFEED4);
+final imgContainerColor = const Color(0xFFEE946A).withOpacity(.4);
 
 const double basePadding = 20;
+const double baseMargin = 20;

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:metqr/shared/component/constants/constants.dart';
 import 'package:metqr/shared/component/responsiveness.dart';
 
@@ -6,10 +7,10 @@ AppBar topNavigationBar(BuildContext context, GlobalKey<ScaffoldState> key) =>
     AppBar(
       leading: !ResponsiveWidget.isSmallScreen(context)
           ? Row(
-              children: [
-                // Text(
-                //   'METQ.',
-                //   style: Theme.of(context).textTheme.titleSmall,
+              children: const [
+                // SvgPicture.asset(
+                //   'assets/images/logo.svg',
+                //   fit: BoxFit.cover,
                 // ),
               ],
             )

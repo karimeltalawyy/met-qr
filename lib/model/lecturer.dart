@@ -37,24 +37,29 @@ class LecturerModel {
       );
 
   factory LecturerModel.fromJson(Map<String, dynamic> json) => LecturerModel(
-    fullName: json["fullName"],
-    email: json["email"],
-    id: json["id"],
-    phone: json["phone"],
-    lectures: List<Lecture>.from(json["lectures"].map((x) => Lecture.fromJson(x))),
-    placeOfBirth: json["placeOfBirth"],
-    gender: json["gender"],
-  );
+        fullName: json["fullName"],
+        email: json["email"],
+        id: json["id"],
+        phone: json["phone"],
+        lectures: json["lectures"] != null && json["lectures"] is List
+            ? List<Lecture>.from(
+                json["lectures"].map<Lecture>((x) => Lecture.fromJson(x)))
+            : [],
+        placeOfBirth: json["placeOfBirth"],
+        gender: json["gender"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "fullName": fullName,
-    "email": email,
-    "id": id,
-    "phone": phone,
-    "lectures": List<dynamic>.from(lectures!.map((x) => x.toJson())),
-    "placeOfBirth": placeOfBirth,
-    "gender": gender,
-  };
+        "fullName": fullName,
+        "email": email,
+        "id": id,
+        "phone": phone,
+        "lectures": lectures != null
+            ? List<dynamic>.from(lectures!.map((x) => x.toJson()))
+            : [],
+        "placeOfBirth": placeOfBirth,
+        "gender": gender,
+      };
 }
 
 class Lecture {
@@ -112,32 +117,32 @@ class Lecture {
       );
 
   factory Lecture.fromJson(Map<String, dynamic> json) => Lecture(
-    id: json["id"],
-    name: json["name"],
-    lecturer: json["lecturer"],
-    location: json["location"],
-    building: json["building"],
-    beginingOfLec: json["beginingOfLec"],
-    endOfLec: json["endOfLec"],
-    lecDate: json["lecDate"],
-    image: json["image"],
-    totalStudents: json["totalStudents"],
-    lecTotalNum: json["lecTotalNum"],
-  );
+        id: json["id"],
+        name: json["name"],
+        lecturer: json["lecturer"],
+        location: json["location"],
+        building: json["building"],
+        beginingOfLec: json["beginingOfLec"],
+        endOfLec: json["endOfLec"],
+        lecDate: json["lecDate"],
+        image: json["image"],
+        totalStudents: json["totalStudents"],
+        lecTotalNum: json["lecTotalNum"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "name": name,
-    "lecturer": lecturer,
-    "location": location,
-    "building": building,
-    "beginingOfLec": beginingOfLec,
-    "endOfLec": endOfLec,
-    "lecDate": lecDate,
-    "image": image,
-    "totalStudents": totalStudents,
-    "lecTotalNum": lecTotalNum,
-  };
+        "id": id,
+        "name": name,
+        "lecturer": lecturer,
+        "location": location,
+        "building": building,
+        "beginingOfLec": beginingOfLec,
+        "endOfLec": endOfLec,
+        "lecDate": lecDate,
+        "image": image,
+        "totalStudents": totalStudents,
+        "lecTotalNum": lecTotalNum,
+      };
 }
 
 class Section {
@@ -163,14 +168,14 @@ class Section {
       );
 
   factory Section.fromJson(Map<String, dynamic> json) => Section(
-    id: json["id"],
-    name: json["name"],
-    lecturer: List<String>.from(json["lecturer"].map((x) => x)),
-  );
+        id: json["id"],
+        name: json["name"],
+        lecturer: List<String>.from(json["lecturer"].map((x) => x)),
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "name": name,
-    "lecturer": List<dynamic>.from(lecturer!.map((x) => x)),
-  };
+        "id": id,
+        "name": name,
+        "lecturer": List<dynamic>.from(lecturer!.map((x) => x)),
+      };
 }

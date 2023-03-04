@@ -1,7 +1,3 @@
-// To parse this JSON data, do
-//
-//     final session = sessionFromJson(jsonString);
-
 import 'dart:convert';
 
 import 'package:metqr/model/Subject.dart';

@@ -118,4 +118,10 @@ class AuthProvider extends ChangeNotifier {
     }
     return null;
   }
+
+  Future<void> signOut() async {
+    lecturerModel == null;
+    notifyListeners();
+    return await _firebaseAuth.signOut();
+  }
 }

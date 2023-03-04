@@ -9,7 +9,9 @@ import 'package:metqr/layout/Lecturer_layout/lecturer_layout_screen.dart';
 import 'package:metqr/layout/cubit/cubit.dart';
 import 'package:metqr/layout/cubit/states.dart';
 import 'package:metqr/providers/auth_provider.dart';
+import 'package:metqr/providers/event_provider.dart';
 import 'package:metqr/providers/wrapper.dart';
+import 'package:metqr/screens/Lecturer/start_sessions/start_sessions.dart';
 import 'package:metqr/screens/student/student%20auth/login/login_screen.dart';
 import 'package:metqr/shared/bloc_observer.dart';
 import 'package:metqr/shared/styles/themes.dart';
@@ -45,13 +47,19 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider<AuthProvider>(
           create: (_) => AuthProvider(),
-        )
+        ),
+        ChangeNotifierProvider<EventProvider>(
+          create: (_) => EventProvider(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: lightTheme,
         themeMode: ThemeMode.light,
-        home: Wrapper(),
+        home: ScreenTypeLayout(
+          desktop: const Wrapper(),
+          mobile: const StudentLayoutPage(),
+        ),
       ),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:metqr/shared/component/constants/constants.dart';
 
 import '../../screens/Lecturer/lecturer_home_page.dart';
@@ -30,11 +31,13 @@ class LargeScreen extends StatelessWidget {
           decoration: const BoxDecoration(color: Colors.white),
           child: Column(
             children: [
-              Text(
-                'METQ.',
-                style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
+              SizedBox(
+                child: SvgPicture.asset(
+                  'assets/images/logo.svg',
+                  width: 25,
+                  height: 25,
+                  fit: BoxFit.cover,
+                ),
               ),
               const Spacer(flex: 1),
               ListView.separated(
@@ -55,19 +58,6 @@ class LargeScreen extends StatelessWidget {
             ],
           ),
         ),
-        // Column(
-        //   crossAxisAlignment: CrossAxisAlignment.start,
-        //   mainAxisAlignment: MainAxisAlignment.start,
-        //   children: [
-        //     Container(
-        //       height: 300,
-        //       width: 200,
-        //       decoration: const BoxDecoration(
-        //     color: Colors.black,
-        //       ),
-        //     ),
-        //   ],
-        // ),
         Expanded(
           flex: 5,
           child: Container(
@@ -81,13 +71,6 @@ class LargeScreen extends StatelessWidget {
             decoration: BoxDecoration(
               color: whiteColor,
               borderRadius: BorderRadius.circular(15),
-              // boxShadow: const [
-              //   BoxShadow(
-              //     offset: Offset(-1, 4),
-              //     blurRadius: 6,
-              //     color: Colors.black12,
-              //   ),
-              // ],
             ),
             width: MediaQuery.of(context).size.width * .23,
             child: Column(
