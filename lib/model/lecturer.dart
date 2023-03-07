@@ -64,12 +64,13 @@ class LecturerModel {
 
 class Lecture {
   Lecture({
-    this.id,
+    this.lectureId,
+    this.lecturerId,
     this.name,
     this.lecturer,
     this.location,
     this.building,
-    this.beginingOfLec,
+    this.beginningOfLec,
     this.endOfLec,
     this.lecDate,
     this.image,
@@ -77,12 +78,13 @@ class Lecture {
     this.lecTotalNum,
   });
 
-  String? id;
+  String? lectureId;
+  String? lecturerId;
   String? name;
   String? lecturer;
   String? location;
   String? building;
-  String? beginingOfLec;
+  String? beginningOfLec;
   String? endOfLec;
   String? lecDate;
   String? image;
@@ -90,12 +92,13 @@ class Lecture {
   String? lecTotalNum;
 
   Lecture copyWith({
-    String? id,
+    String? lectureId,
+    String? lecturerId,
     String? name,
     String? lecturer,
     String? location,
     String? building,
-    String? beginingOfLec,
+    String? beginningOfLec,
     String? endOfLec,
     String? lecDate,
     String? image,
@@ -103,12 +106,13 @@ class Lecture {
     String? lecTotalNum,
   }) =>
       Lecture(
-        id: id ?? this.id,
+        lectureId: lectureId ?? this.lectureId,
+        lecturerId: lecturerId ?? this.lecturerId,
         name: name ?? this.name,
         lecturer: lecturer ?? this.lecturer,
         location: location ?? this.location,
         building: building ?? this.building,
-        beginingOfLec: beginingOfLec ?? this.beginingOfLec,
+        beginningOfLec: beginningOfLec ?? this.beginningOfLec,
         endOfLec: endOfLec ?? this.endOfLec,
         lecDate: lecDate ?? this.lecDate,
         image: image ?? this.image,
@@ -117,32 +121,34 @@ class Lecture {
       );
 
   factory Lecture.fromJson(Map<String, dynamic> json) => Lecture(
-        id: json["id"],
-        name: json["name"],
-        lecturer: json["lecturer"],
-        location: json["location"],
-        building: json["building"],
-        beginingOfLec: json["beginingOfLec"],
-        endOfLec: json["endOfLec"],
-        lecDate: json["lecDate"],
-        image: json["image"],
-        totalStudents: json["totalStudents"],
-        lecTotalNum: json["lecTotalNum"],
-      );
+    lectureId: json["lectureId"],
+    lecturerId: json["lecturerId"],
+    name: json["name"],
+    lecturer: json["lecturer"],
+    location: json["location"],
+    building: json["building"],
+    beginningOfLec: json["beginningOfLec"],
+    endOfLec: json["endOfLec"],
+    lecDate: json["lecDate"],
+    image: json["image"],
+    totalStudents: json["totalStudents"],
+    lecTotalNum: json["lecTotalNum"],
+  );
 
   Map<String, dynamic> toJson() => {
-        "id": id,
-        "name": name,
-        "lecturer": lecturer,
-        "location": location,
-        "building": building,
-        "beginingOfLec": beginingOfLec,
-        "endOfLec": endOfLec,
-        "lecDate": lecDate,
-        "image": image,
-        "totalStudents": totalStudents,
-        "lecTotalNum": lecTotalNum,
-      };
+    "lectureId": lectureId,
+    "lecturerId": lecturerId,
+    "name": name,
+    "lecturer": lecturer,
+    "location": location,
+    "building": building,
+    "beginningOfLec": beginningOfLec,
+    "endOfLec": endOfLec,
+    "lecDate": lecDate,
+    "image": image,
+    "totalStudents": totalStudents,
+    "lecTotalNum": lecTotalNum,
+  };
 }
 
 class Section {

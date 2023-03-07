@@ -9,9 +9,13 @@ import 'package:metqr/layout/Lecturer_layout/lecturer_layout_screen.dart';
 import 'package:metqr/layout/cubit/cubit.dart';
 import 'package:metqr/layout/cubit/states.dart';
 import 'package:metqr/providers/auth_provider.dart';
-import 'package:metqr/providers/event_provider.dart';
-import 'package:metqr/providers/wrapper.dart';
+import 'package:metqr/providers/session_provider.dart';
+import 'package:metqr/providers/lecturer_wrapper.dart';
+import 'package:metqr/providers/student_auth_provider.dart';
+import 'package:metqr/providers/student_wrapper.dart';
 import 'package:metqr/screens/Lecturer/start_sessions/start_sessions.dart';
+import 'package:metqr/screens/student/login/student_login_screen.dart';
+import 'package:metqr/screens/student/signup/student_signup_screen.dart';
 import 'package:metqr/screens/student/student%20auth/login/login_screen.dart';
 import 'package:metqr/shared/bloc_observer.dart';
 import 'package:metqr/shared/styles/themes.dart';
@@ -48,8 +52,11 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<AuthProvider>(
           create: (_) => AuthProvider(),
         ),
-        ChangeNotifierProvider<EventProvider>(
-          create: (_) => EventProvider(),
+        ChangeNotifierProvider<StudentAuthProvider>(
+          create: (_) => StudentAuthProvider(),
+        ),
+        ChangeNotifierProvider<SessionProvider>(
+          create: (_) => SessionProvider(),
         ),
       ],
       child: MaterialApp(
@@ -57,8 +64,8 @@ class MyApp extends StatelessWidget {
         theme: lightTheme,
         themeMode: ThemeMode.light,
         home: ScreenTypeLayout(
-          desktop: const Wrapper(),
-          mobile: const StudentLayoutPage(),
+          desktop: const LecturerWrapper(),
+          mobile: const StudentWrapper(),
         ),
       ),
     );

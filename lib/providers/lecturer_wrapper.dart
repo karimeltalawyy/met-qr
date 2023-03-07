@@ -8,8 +8,8 @@ import 'package:provider/provider.dart';
 import '../screens/Lecturer/login/lecturer_login_screen.dart';
 
 
-class Wrapper extends HookWidget {
-  const Wrapper({Key? key}) : super(key: key);
+class LecturerWrapper extends HookWidget {
+  const LecturerWrapper({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

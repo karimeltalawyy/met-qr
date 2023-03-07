@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:metqr/providers/event_provider.dart';
+import 'package:metqr/providers/session_provider.dart';
 import 'package:metqr/widgets/desktop/event_datasource.dart';
 import 'package:metqr/widgets/desktop/task_widget.dart';
 import 'package:provider/provider.dart';
@@ -10,11 +10,15 @@ class CalenderWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final events = Provider.of<EventProvider>(context).events;
+    final events = Provider.of<SessionProvider>(context).events;
     return SfCalendar(
+      view: CalendarView.week,
+      firstDayOfWeek: 6,
+      initialDisplayDate: DateTime.now(),
+      initialSelectedDate:  DateTime.now(),
       dataSource: EventDataSource(events),
       onLongPress: (details) {
-        final provider = Provider.of<EventProvider>(context, listen: false);
+        final provider = Provider.of<SessionProvider>(context, listen: false);
         provider.setDate(details.date!);
         showModalBottomSheet(
           context: context,

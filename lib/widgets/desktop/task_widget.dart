@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:metqr/providers/event_provider.dart';
+import 'package:metqr/providers/session_provider.dart';
 import 'package:metqr/shared/component/components.dart';
 import 'package:metqr/shared/component/constants/constants.dart';
 import 'package:metqr/widgets/desktop/event_datasource.dart';
@@ -17,7 +17,7 @@ class TaskWidget extends StatefulWidget {
 class _TaskWidgetState extends State<TaskWidget> {
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<EventProvider>(context);
+    final provider = Provider.of<SessionProvider>(context);
     final selectedEvents = provider.eventsOfSelectedDate;
     if (selectedEvents.isEmpty) {
       return const Center(

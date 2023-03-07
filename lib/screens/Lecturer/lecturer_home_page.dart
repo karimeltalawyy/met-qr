@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:metqr/providers/auth_provider.dart';
+import 'package:metqr/screens/Lecturer/qr_generator/qr_generator_screen.dart';
 import 'package:metqr/screens/Lecturer/start_sessions/start_sessions.dart';
 import 'package:metqr/shared/component/buttons.dart';
 import 'package:metqr/shared/component/components.dart';
@@ -62,7 +63,7 @@ class LecturerHomePage extends StatelessWidget {
                     text: 'Start session',
                     width: MediaQuery.of(context).size.width / 3,
                     onPressed: () async {
-                     navigateTo(context, StartSessions());
+                      navigateTo(context, const StartSessions());
                     },
                   ),
                 ],
@@ -71,11 +72,15 @@ class LecturerHomePage extends StatelessWidget {
             const SizedBox(height: 12),
             //sidebar
             Container(
+              padding: const EdgeInsets.all(basePadding),
               width: MediaQuery.of(context).size.width / 1,
               height: MediaQuery.of(context).size.height / 1.8,
               decoration: BoxDecoration(
                 color: whiteColor,
                 borderRadius: BorderRadius.circular(15),
+              ),
+              child: const Center(
+                child: QRGeneratorScreen(),
               ),
             ),
           ],

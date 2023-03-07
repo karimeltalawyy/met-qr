@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:metqr/providers/student_auth_provider.dart';
+import 'package:provider/provider.dart';
 
 import '../../../layout/cubit/cubit.dart';
 import '../../../layout/cubit/states.dart';
@@ -9,23 +13,52 @@ import '../../../widgets/defaultButton.dart';
 import '../../../widgets/today_schedule_card.dart';
 import '../../../widgets/searchbar.dart';
 
-class StudentHomePage extends StatelessWidget {
+class StudentHomePage extends HookWidget {
   const StudentHomePage({Key? key}) : super(key: key);
   final double basePadding = 20;
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AppCubit, AppStates>(
-      listener: (context, state) {},
-      builder: (context, state) {
+    final textTheme = Theme.of(context).textTheme;
+    return Consumer<StudentAuthProvider?>(
+      builder: (context, value, child) {
         return Scaffold(
           backgroundColor: surfaceColor,
+          appBar: AppBar(
+            title: SvgPicture.asset(
+              'assets/images/logo.svg',
+              height: 20,
+              width: 20,
+            ),
+            centerTitle: false,
+            backgroundColor: surfaceColor,
+            titleSpacing: basePadding,
+            actions: [
+              IconButton(
+                onPressed: () async {
+                  Provider.of<StudentAuthProvider>(context, listen: false)
+                      .signOut();
+                },
+                icon: const Icon(Icons.notifications_none_rounded),
+              ),
+            ],
+          ),
           body: Padding(
             padding: EdgeInsets.all(basePadding),
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Text(
+                    'Welcome',
+                    style: textTheme.headlineMedium,
+                  ),
+                  const SizedBox(height: 6),
+                  Text(
+                    '${value?.studentModel?.fullName}',
+                    style: textTheme.titleLarge,
+                  ),
+                  const SizedBox(height: 16),
                   const SearchBar(),
                   const SizedBox(height: 26),
                   const AttendanceCard(),
@@ -63,40 +96,40 @@ class StudentHomePage extends StatelessWidget {
       );
 
   Widget _buildActivityItem() => Container(
-    height: 45,
-    child: ListView.separated(
-      physics: const BouncingScrollPhysics(),
-      scrollDirection: Axis.horizontal,
-      itemBuilder: (context, index) => InkWell(
-        onTap: (){},
-        child: AnimatedContainer(
-          curve: Curves.fastOutSlowIn,
-          duration: const Duration(milliseconds: 400),
-          width: 200,
-          height: 20,
-          decoration: BoxDecoration(
-            border: Border.all(width: .6, color: surfaceColor),
-            borderRadius: BorderRadius.circular(15),
-            color: Colors.white,
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(12),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: const [
-                Icon(
-                  Icons.person_search_rounded,
-                  color: secondaryColor,
+        height: 45,
+        child: ListView.separated(
+          physics: const BouncingScrollPhysics(),
+          scrollDirection: Axis.horizontal,
+          itemBuilder: (context, index) => InkWell(
+            onTap: () {},
+            child: AnimatedContainer(
+              curve: Curves.fastOutSlowIn,
+              duration: const Duration(milliseconds: 400),
+              width: 200,
+              height: 20,
+              decoration: BoxDecoration(
+                border: Border.all(width: .6, color: surfaceColor),
+                borderRadius: BorderRadius.circular(15),
+                color: Colors.white,
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(12),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: const [
+                    Icon(
+                      Icons.person_search_rounded,
+                      color: secondaryColor,
+                    ),
+                    SizedBox(width: 12),
+                    Text('Attendance'),
+                  ],
                 ),
-                SizedBox(width: 12),
-                Text('Attendance'),
-              ],
+              ),
             ),
           ),
+          separatorBuilder: (context, index) => const SizedBox(width: 12),
+          itemCount: 6,
         ),
-      ),
-      separatorBuilder: (context, index) => const SizedBox(width: 12),
-      itemCount: 6,
-    ),
-  );
+      );
 }

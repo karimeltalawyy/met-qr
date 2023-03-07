@@ -1,36 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:metqr/shared/component/constants/constants.dart';
 
+import '../../screens/student/reports/reports_screen.dart';
+import '../../screens/student/student home page/stu_homepage_screen.dart';
+import '../../screens/student/student schedule/schedule_screen.dart';
+import '../../screens/student/student settings/settings_screen.dart';
 import '../cubit/cubit.dart';
 import '../cubit/states.dart';
 
-class StudentLayoutPage extends StatelessWidget {
+class StudentLayoutPage extends HookWidget {
   const StudentLayoutPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final currentIndex = useState<int>(0);
+    final changeNavBar = useCallback(
+      (index) {
+        currentIndex.value = index;
+      },
+      ['changeNavBar'],
+    );
+    final screens = useState<List<Widget>>([
+      const StudentHomePage(),
+      const ScheduleScreen(),
+      const ReportsScreen(),
+      const SettingsScreen(),
+    ]);
     return Scaffold(
-      backgroundColor:surfaceColor,
-      appBar: AppBar(
-        backgroundColor: surfaceColor,
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.notifications_outlined),
-          ),
-        ],
-        title:_buildTitleWidget(context),
-        centerTitle: false,
-      ),
-      body: Container(),
-      // AppCubit.get(context).screens[AppCubit.get(context).currentIndex],
+      backgroundColor: surfaceColor,
+      body: screens.value[currentIndex.value],
       bottomNavigationBar: BottomNavigationBar(
         onTap: (index) {
-          // AppCubit.get(context).changeBottomNav(index);
+          changeNavBar.call(index);
         },
-        currentIndex: 0,
-        // AppCubit.get(context).currentIndex,
+        currentIndex: currentIndex.value,
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -49,6 +54,7 @@ class StudentLayoutPage extends StatelessWidget {
             label: 'Settings',
           ),
         ],
+        type: BottomNavigationBarType.fixed,
       ),
     );
   }

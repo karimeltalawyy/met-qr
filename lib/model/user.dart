@@ -8,26 +8,29 @@ class UserModel {
     this.placeOfBirth,
     this.gender,
     this.sections,
+    this.universityCode,
   });
 
   String? fullName;
   String? email;
   String? id;
-  List<String>? phone;
+  String? phone;
   List<Lecture>? lectures;
   String? placeOfBirth;
   String? gender;
+  String? universityCode;
   List<Section>? sections;
 
   UserModel copyWith({
     String? fullName,
     String? email,
     String? id,
-    List<String>? phone,
+    String? phone,
     List<Lecture>? lectures,
     String? placeOfBirth,
     String? gender,
     List<Section>? sections,
+    String? universityCode,
   }) =>
       UserModel(
         fullName: fullName ?? this.fullName,
@@ -38,39 +41,49 @@ class UserModel {
         placeOfBirth: placeOfBirth ?? this.placeOfBirth,
         gender: gender ?? this.gender,
         sections: sections ?? this.sections,
+        universityCode: universityCode ?? this.universityCode,
       );
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
-    fullName: json["fullName"],
-    email: json["email"],
-    id: json["id"],
-    phone: List<String>.from(json["phone"].map((x) => x)),
-    lectures: List<Lecture>.from(json["lectures"].map((x) => Lecture.fromJson(x))),
-    placeOfBirth: json["placeOfBirth"],
-    gender: json["gender"],
-    sections: List<Section>.from(json["sections"].map((x) => Section.fromJson(x))),
-  );
+        fullName: json["fullName"],
+        universityCode: json["universityCode"],
+        email: json["email"],
+        id: json["id"],
+        phone: json["phone"],
+        lectures: List<Lecture>.from(
+            json["lectures"].map((x) => Lecture.fromJson(x))),
+        placeOfBirth: json["placeOfBirth"],
+        gender: json["gender"],
+        sections: List<Section>.from(
+            json["sections"].map((x) => Section.fromJson(x))),
+      );
 
   Map<String, dynamic> toJson() => {
-    "fullName": fullName,
-    "email": email,
-    "id": id,
-    "phone": List<dynamic>.from(phone!.map((x) => x)),
-    "lectures": List<dynamic>.from(lectures!.map((x) => x.toJson())),
-    "placeOfBirth": placeOfBirth,
-    "gender": gender,
-    "sections": List<dynamic>.from(sections!.map((x) => x.toJson())),
-  };
+        "fullName": fullName,
+        "email": email,
+        "universityCode": universityCode,
+        "id": id,
+        "phone": phone,
+        "lectures": lectures != null
+            ? List<dynamic>.from(lectures!.map((x) => x.toJson()))
+            : [],
+        "placeOfBirth": placeOfBirth,
+        "gender": gender,
+        "sections": sections != null
+            ? List<dynamic>.from(sections!.map((x) => x.toJson()))
+            : [],
+      };
 }
 
 class Lecture {
   Lecture({
-    this.id,
+    this.lectureId,
+    this.lecturerId,
     this.name,
     this.lecturer,
     this.location,
     this.building,
-    this.beginingOfLec,
+    this.beginningOfLec,
     this.endOfLec,
     this.lecDate,
     this.image,
@@ -78,12 +91,13 @@ class Lecture {
     this.lecTotalNum,
   });
 
-  String? id;
+  String? lectureId;
+  String? lecturerId;
   String? name;
   String? lecturer;
   String? location;
   String? building;
-  String? beginingOfLec;
+  String? beginningOfLec;
   String? endOfLec;
   String? lecDate;
   String? image;
@@ -91,12 +105,13 @@ class Lecture {
   String? lecTotalNum;
 
   Lecture copyWith({
-    String? id,
+    String? lectureId,
+    String? lecturerId,
     String? name,
     String? lecturer,
     String? location,
     String? building,
-    String? beginingOfLec,
+    String? beginningOfLec,
     String? endOfLec,
     String? lecDate,
     String? image,
@@ -104,12 +119,13 @@ class Lecture {
     String? lecTotalNum,
   }) =>
       Lecture(
-        id: id ?? this.id,
+        lectureId: lectureId ?? this.lectureId,
+        lecturerId: lecturerId ?? this.lecturerId,
         name: name ?? this.name,
         lecturer: lecturer ?? this.lecturer,
         location: location ?? this.location,
         building: building ?? this.building,
-        beginingOfLec: beginingOfLec ?? this.beginingOfLec,
+        beginningOfLec: beginningOfLec ?? this.beginningOfLec,
         endOfLec: endOfLec ?? this.endOfLec,
         lecDate: lecDate ?? this.lecDate,
         image: image ?? this.image,
@@ -118,32 +134,33 @@ class Lecture {
       );
 
   factory Lecture.fromJson(Map<String, dynamic> json) => Lecture(
-    id: json["id"],
-    name: json["name"],
-    lecturer: json["lecturer"],
-    location: json["location"],
-    building: json["building"],
-    beginingOfLec: json["beginingOfLec"],
-    endOfLec: json["endOfLec"],
-    lecDate: json["lecDate"],
-    image: json["image"],
-    totalStudents: json["totalStudents"],
-    lecTotalNum: json["lecTotalNum"],
-  );
+        lectureId: json["lectureId"],
+        lecturerId: json["lecturerId"],
+        name: json["name"],
+        lecturer: json["lecturer"],
+        location: json["location"],
+        building: json["building"],
+        beginningOfLec: json["beginningOfLec"],
+        endOfLec: json["endOfLec"],
+        lecDate: json["lecDate"],
+        image: json["image"],
+        totalStudents: json["totalStudents"],
+        lecTotalNum: json["lecTotalNum"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "name": name,
-    "lecturer": lecturer,
-    "location": location,
-    "building": building,
-    "beginingOfLec": beginingOfLec,
-    "endOfLec": endOfLec,
-    "lecDate": lecDate,
-    "image": image,
-    "totalStudents": totalStudents,
-    "lecTotalNum": lecTotalNum,
-  };
+        "lectureId": lectureId,
+        "name": name,
+        "lecturer": lecturer,
+        "location": location,
+        "building": building,
+        "beginningOfLec": beginningOfLec,
+        "endOfLec": endOfLec,
+        "lecDate": lecDate,
+        "image": image,
+        "totalStudents": totalStudents,
+        "lecTotalNum": lecTotalNum,
+      };
 }
 
 class Section {
@@ -169,14 +186,14 @@ class Section {
       );
 
   factory Section.fromJson(Map<String, dynamic> json) => Section(
-    id: json["id"],
-    name: json["name"],
-    lecturer: List<String>.from(json["lecturer"].map((x) => x)),
-  );
+        id: json["id"],
+        name: json["name"],
+        lecturer: List<String>.from(json["lecturer"].map((x) => x)),
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "name": name,
-    "lecturer": List<dynamic>.from(lecturer!.map((x) => x)),
-  };
+        "id": id,
+        "name": name,
+        "lecturer": List<dynamic>.from(lecturer!.map((x) => x)),
+      };
 }

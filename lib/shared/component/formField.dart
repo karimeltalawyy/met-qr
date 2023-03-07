@@ -13,6 +13,7 @@ class DefaultFormField extends StatelessWidget {
     this.controller,
     this.fillColor,
     this.keyboardType,
+    this.securePassword,
   }) : super(key: key);
   final IconData prefixIcon;
   final IconData? suffixIcon;
@@ -23,6 +24,7 @@ class DefaultFormField extends StatelessWidget {
   final TextEditingController? controller;
   final Color? fillColor;
   final TextInputType? keyboardType;
+  final bool? securePassword;
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +35,7 @@ class DefaultFormField extends StatelessWidget {
       },
       onChanged: (query) {},
       keyboardType: keyboardType,
+      obscureText: securePassword ?? false,
       decoration: decoration ??
           InputDecoration(
             enabledBorder: OutlineInputBorder(
@@ -67,9 +70,10 @@ class DefaultFormField extends StatelessWidget {
               color: Colors.grey.shade500,
             ),
             prefixIcon: Icon(prefixIcon ?? Icons.search),
-            suffixIcon: isPassword
-                ? Icon(suffixIcon ?? Icons.visibility_outlined)
-                : null,
+            suffixIcon: isPassword? IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.visibility_off),
+            ): null,
           ),
     );
   }

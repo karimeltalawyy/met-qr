@@ -19,7 +19,7 @@ class SearchBar extends StatelessWidget {
         filled: true,
         fillColor: whiteColor,
         contentPadding: const EdgeInsets.all(0),
-        hintText: 'Search presets',
+        hintText: 'Search something...',
         hintStyle: TextStyle(
           fontSize: 16,
           color: Colors.grey.shade500,
