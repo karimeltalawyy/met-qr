@@ -3,17 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:metqr/model/SessionSchudle.dart';
 import 'package:metqr/model/Subject.dart';
 import 'package:metqr/model/lecturer.dart';
-import 'package:provider/provider.dart';
 
 import '../model/eventModel.dart';
 import '../shared/component/constants/constants.dart';
-import '../shared/component/toast.dart';
 
 class SessionProvider extends ChangeNotifier {
   //this is list of events passed to calender
   final List<Event> _events = [];
   Session? sessionModel;
   LecturerModel? lecturerModel;
+  DateTime? fromDate = DateTime.now();
+  DateTime? toDate = DateTime.now().add(const Duration(hours: 2));
 
   //create Session
   Future<Session?> createSession({
@@ -24,13 +24,23 @@ class SessionProvider extends ChangeNotifier {
     String? datesString,
     List<String>? dates,
     List<Attendance>? attendances,
+    String? fromDate,
+    String? toDate,
+    String? fromTime,
+    String? toTime,
+    bool? isRepeated,
   }) async {
     try {
       final docSessions =
           FirebaseFirestore.instance.collection('sessions').doc();
       var sessionsModel = Session(
+        fromDate: fromDate ?? DateTime.now().toIso8601String(),
+        toDate: toDate ?? DateTime.now().toIso8601String(),
+        fromTime: fromTime ?? DateTime.now().toIso8601String(),
+        toTime: toTime ?? DateTime.now().toIso8601String(),
+        isRepeated: isRepeated ?? true,
         subject: subject ?? <Subject>[],
-        lecturerId: docSessions.id ?? '2134',
+        lecturerId: docSessions.id,
         lecturerName: lecturerName,
         assignedStudentsIds: assignedStudentsIds ?? <String>[],
         datesString: datesString ?? '52345',
@@ -98,20 +108,62 @@ class SessionProvider extends ChangeNotifier {
     return model.lectures ?? [];
   }
 
-  List<Event> get events => _events;
+  Future<List<Lecture>> getLectures({
+    required String lecturerId,
+  }) async {
+    final lecturerDocRef = FirebaseFirestore.instance
+        .collection('sessions')
+        .where('lecturerId', isEqualTo: lecturerId);
+    final lecturerDoc = await lecturerDocRef.get();
+    if (lecturerDoc == null && lecturerDoc.docs.isEmpty) return [];
+    return lecturerDoc.docs
+        .map((element) => Lecture.fromJson(element.data()))
+        .toList();
+  }
 
-  DateTime _selectedDate =
-      DateTime.now(); //hold the date on the last clicked one
+  Future<Lecture?> getCurrentLecture({required String lecturerId}) async {
+    final lectureList = await getLectures(lecturerId: lecturerId);
+    print(lectureList.length);
+    if (lectureList.isEmpty) return null;
 
-  DateTime get selectedDate => _selectedDate;
+    return lectureList.first;
+    final activeIndex = lectureList.indexWhere((element) =>
+        element.lecDate != null
+            ? DateTime.parse(element.lecDate!)
+                .isAfter(DateTime.now().subtract(Duration(minutes: 60)))
+            : false);
 
-  void setDate(DateTime date) => _selectedDate = date;
+    if (activeIndex == -1) return null;
+    return lectureList[activeIndex];
+  }
 
-  List<Event> get eventsOfSelectedDate =>
-      _events; // show the selected event date not all other date
+//create subject
+  Future<String?> createSubject({
+    String? name,
+    required String lecturerId,
+    String? lecturerName,
+    String? grade,
+    String? devision,
+  }) async {
+    final subjectDocRef =
+        FirebaseFirestore.instance.collection('sessions').doc(lecturerId);
+    final subjectDoc = await subjectDocRef.get();
 
-  void addEvent(Event event) {
-    _events.add(event);
-    notifyListeners();
+    final Session subjectModel =
+        Session.fromJson(subjectDoc.data() as Map<String, dynamic>);
+
+    subjectModel.subject ??= [];
+    final id = '${lecturerId}_${subjectModel.subject!.length}';
+    subjectModel.subject?.add(
+      Subject(
+        name: name ?? 'Database',
+        lecturerId: lecturerId,
+        lecturerName: lecturerName ?? 'Karim',
+        grade: grade ?? '1',
+        devision: devision ?? 'CS',
+      ),
+    );
+    await subjectDocRef.update(subjectModel.toJson());
+    return id;
   }
 }

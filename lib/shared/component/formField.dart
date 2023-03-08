@@ -64,12 +64,12 @@ class DefaultFormField extends StatelessWidget {
             filled: true,
             fillColor: fillColor ?? whiteColor,
             contentPadding: const EdgeInsets.all(0),
-            hintText: hintText ?? 'ex.123123',
+            hintText: hintText ,
             hintStyle: TextStyle(
               fontSize: 16,
               color: Colors.grey.shade500,
             ),
-            prefixIcon: Icon(prefixIcon ?? Icons.search),
+            prefixIcon: Icon(prefixIcon),
             suffixIcon: isPassword? IconButton(
               onPressed: () {},
               icon: const Icon(Icons.visibility_off),

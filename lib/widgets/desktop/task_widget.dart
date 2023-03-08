@@ -18,16 +18,16 @@ class _TaskWidgetState extends State<TaskWidget> {
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<SessionProvider>(context);
-    final selectedEvents = provider.eventsOfSelectedDate;
-    if (selectedEvents.isEmpty) {
-      return const Center(
-        child: Text('No events found'),
-      );
-    }
+    // final selectedEvents = provider.eventsOfSelectedDate;
+    // if (selectedEvents.isEmpty) {
+    //   return const Center(
+    //     child: Text('No events found'),
+    //   );
+    // }
     return SfCalendar(
       view: CalendarView.timelineDay,
-      dataSource: EventDataSource(provider.events),
-      initialDisplayDate: provider.selectedDate,
+      // dataSource: EventDataSource(provider.events),
+      // initialDisplayDate: provider.selectedDate,
       appointmentBuilder: appointmentBuilder,
       headerHeight: 0,
       todayHighlightColor: Colors.black,

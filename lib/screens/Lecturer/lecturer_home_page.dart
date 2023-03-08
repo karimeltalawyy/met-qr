@@ -1,20 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:metqr/providers/auth_provider.dart';
+import 'package:metqr/providers/session_provider.dart';
 import 'package:metqr/screens/Lecturer/qr_generator/qr_generator_screen.dart';
 import 'package:metqr/screens/Lecturer/start_sessions/start_sessions.dart';
 import 'package:metqr/shared/component/buttons.dart';
 import 'package:metqr/shared/component/components.dart';
-import 'package:metqr/widgets/defaultButton.dart';
+import 'package:metqr/shared/component/toast.dart';
 import 'package:provider/provider.dart';
 
 import '../../shared/component/constants/constants.dart';
+import '../../shared/component/formField.dart';
 
-class LecturerHomePage extends StatelessWidget {
+class LecturerHomePage extends HookWidget {
   const LecturerHomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final authModel = Provider.of<AuthProvider>(context);
+    final sessionProvider = Provider.of<SessionProvider>(context);
+    final subjectNameCtrl = useTextEditingController();
+    final subjectGradeCtrl = useTextEditingController();
+    final subjectDivisionCtrl = useTextEditingController();
+    final formKey = useState<GlobalKey<FormState>>(GlobalKey<FormState>());
+
     return Padding(
       padding: const EdgeInsets.all(basePadding),
       child: SingleChildScrollView(
@@ -63,7 +72,7 @@ class LecturerHomePage extends StatelessWidget {
                     text: 'Start session',
                     width: MediaQuery.of(context).size.width / 3,
                     onPressed: () async {
-                      navigateTo(context, const StartSessions());
+                      navigateTo(context, StartSessions());
                     },
                   ),
                 ],
@@ -79,8 +88,26 @@ class LecturerHomePage extends StatelessWidget {
                 color: whiteColor,
                 borderRadius: BorderRadius.circular(15),
               ),
-              child: const Center(
-                child: QRGeneratorScreen(),
+              child: Form(
+                key: formKey.value,
+                child: SingleChildScrollView(
+                  physics: const NeverScrollableScrollPhysics(),
+                  child: Column(
+                    children: [
+                      Text(
+                        'Create QR',
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
+                      const SizedBox(
+                        width: 400,
+                        height: 400,
+                        child: Center(
+                          child: QRGeneratorScreen(),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ),
           ],

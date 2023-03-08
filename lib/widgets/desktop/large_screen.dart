@@ -34,6 +34,9 @@ class LargeScreen extends HookWidget {
     final lectureNameCtrl = useTextEditingController();
     final totalNumStudentCtrl = useTextEditingController();
     final lectureIdCtrl = useTextEditingController();
+    final subjectNameCtrl = useTextEditingController();
+    final subjectGradeCtrl = useTextEditingController();
+    final subjectDivisionCtrl = useTextEditingController();
     final formKey = useState<GlobalKey<FormState>>(GlobalKey<FormState>());
     return Consumer<SessionProvider>(
       builder: (context, state, child) {
@@ -89,137 +92,203 @@ class LargeScreen extends HookWidget {
                 width: MediaQuery.of(context).size.width * .23,
                 child: Form(
                   key: formKey.value,
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          Text(
-                            'Reports',
-                            style: Theme.of(context).textTheme.titleLarge,
-                          ),
-                          const Spacer(),
-                          TextButton(
-                            onPressed: () {},
-                            child: Text(
-                              'See all',
-                              style: Theme.of(context).textTheme.labelMedium,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 12),
-                      Row(
-                        children: [
-                          Text(
-                            'Attendance rate in (AI) lecture',
-                            style: Theme.of(context).textTheme.labelLarge,
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 12),
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height * .2,
-                        decoration: BoxDecoration(
-                          color: secondaryColor,
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                      ),
-                      const SizedBox(height: 24),
-                      Row(
-                        children: [
-                          Text(
-                            'Student Activity',
-                            style: Theme.of(context).textTheme.headlineSmall,
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 14),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * .3,
-                        child: DefaultFormField(
-                          validator: (String? val) {
-                            if (val!.isEmpty) {
-                              return 'must not be empty';
-                            }
-                            return null;
-                          },
-                          controller: lectureNameCtrl,
-                          keyboardType: TextInputType.multiline,
-                          fillColor: greyColor,
-                          prefixIcon: Icons.description_rounded,
-                          hintText: 'Lecture name',
-                        ),
-                      ),
-                      const SizedBox(height: 16),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * .3,
-                        child: DefaultFormField(
-                          validator: (String? val) {
-                            if (val!.isEmpty) {
-                              return 'must not be empty';
-                            }
-                            return null;
-                          },
-                          controller: totalNumStudentCtrl,
-                          keyboardType: TextInputType.multiline,
-                          fillColor: greyColor,
-                          prefixIcon: Icons.description_rounded,
-                          hintText: 'Total students',
-                        ),
-                      ),
-                      const SizedBox(height: 16),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * .3,
-                        child: DefaultFormField(
-                          validator: (String? val) {
-                            if (val!.isEmpty) {
-                              return 'must not be empty';
-                            }
-                            return null;
-                          },
-                          controller: lectureIdCtrl,
-                          keyboardType: TextInputType.multiline,
-                          fillColor: greyColor,
-                          prefixIcon: Icons.description_rounded,
-                          hintText: 'Lecture Id',
-                        ),
-                      ),
-                      const SizedBox(height: 16),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * .3,
-                        height: 40,
-                        child: Row(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
                           children: [
-                            Expanded(
-                              child: DefaultButtonLecturer(
-                                text: 'Save',
-                                onPressed: () async {
-                                  if (formKey.value.currentState!.validate()) {
-                                    final lecture = await state.createLecture(
-                                      lecturerId:
-                                          authLecturer.lecturerModel!.id!,
-                                      lectureId: lectureIdCtrl.value.text,
-                                      name: lectureNameCtrl.value.text,
-                                      lecturer:
-                                          authLecturer.lecturerModel!.fullName!,
-                                      totalStudents:
-                                          totalNumStudentCtrl.value.text,
-                                    );
-
-                                    lecture != null
-                                        ? showToast(
-                                            state: ToastStates.SUCCESS,
-                                            message: 'You all set')
-                                        : false;
-                                  }
-                                },
+                            Text(
+                              'Reports',
+                              style: Theme.of(context).textTheme.titleLarge,
+                            ),
+                            const Spacer(),
+                            TextButton(
+                              onPressed: () {},
+                              child: Text(
+                                'See all',
+                                style: Theme.of(context).textTheme.labelMedium,
                               ),
                             ),
                           ],
                         ),
-                      ),
-                    ],
+                        const SizedBox(height: 12),
+                        Row(
+                          children: [
+                            Text(
+                              'Attendance rate in (AI) lecture',
+                              style: Theme.of(context).textTheme.labelLarge,
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 12),
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: MediaQuery.of(context).size.height * .2,
+                          decoration: BoxDecoration(
+                            color: secondaryColor,
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                        ),
+                        const SizedBox(height: 24),
+                        Row(
+                          children: [
+                            Text(
+                              'Lectures',
+                              style: Theme.of(context).textTheme.headlineSmall,
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 14),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * .3,
+                          child: DefaultFormField(
+                            validator: (String? val) {
+                              if (val!.isEmpty) {
+                                return 'must not be empty';
+                              }
+                              return null;
+                            },
+                            controller: lectureNameCtrl,
+                            keyboardType: TextInputType.multiline,
+                            fillColor: greyColor,
+                            prefixIcon: Icons.description_rounded,
+                            hintText: 'Lecture name',
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * .3,
+                          child: DefaultFormField(
+                            validator: (String? val) {
+                              if (val!.isEmpty) {
+                                return 'must not be empty';
+                              }
+                              return null;
+                            },
+                            controller: totalNumStudentCtrl,
+                            keyboardType: TextInputType.multiline,
+                            fillColor: greyColor,
+                            prefixIcon: Icons.description_rounded,
+                            hintText: 'Total students',
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * .3,
+                          child: DefaultFormField(
+                            validator: (String? val) {
+                              if (val!.isEmpty) {
+                                return 'must not be empty';
+                              }
+                              return null;
+                            },
+                            controller: lectureIdCtrl,
+                            keyboardType: TextInputType.multiline,
+                            fillColor: greyColor,
+                            prefixIcon: Icons.description_rounded,
+                            hintText: 'Lecture Id',
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        // const SizedBox(height: 8),
+                        // SizedBox(
+                        //   width: MediaQuery.of(context).size.width * .3,
+                        //   child: DefaultFormField(
+                        //     validator: (String? val) {
+                        //       if (val!.isEmpty) {
+                        //         return 'must not be empty';
+                        //       }
+                        //       return null;
+                        //     },
+                        //     controller: subjectNameCtrl,
+                        //     keyboardType: TextInputType.multiline,
+                        //     fillColor: greyColor,
+                        //     prefixIcon: Icons.description_rounded,
+                        //     hintText: 'Subject name',
+                        //   ),
+                        // ),
+                        // const SizedBox(height: 16),
+                        // SizedBox(
+                        //   width: MediaQuery.of(context).size.width * .3,
+                        //   child: DefaultFormField(
+                        //     validator: (String? val) {
+                        //       if (val!.isEmpty) {
+                        //         return 'must not be empty';
+                        //       }
+                        //       return null;
+                        //     },
+                        //     controller: subjectGradeCtrl,
+                        //     keyboardType: TextInputType.multiline,
+                        //     fillColor: greyColor,
+                        //     prefixIcon: Icons.description_rounded,
+                        //     hintText: 'Subject grade',
+                        //   ),
+                        // ),
+                        // const SizedBox(height: 16),
+                        // SizedBox(
+                        //   width: MediaQuery.of(context).size.width * .3,
+                        //   child: DefaultFormField(
+                        //     validator: (String? val) {
+                        //       if (val!.isEmpty) {
+                        //         return 'must not be empty';
+                        //       }
+                        //       return null;
+                        //     },
+                        //     controller: subjectDivisionCtrl,
+                        //     keyboardType: TextInputType.multiline,
+                        //     fillColor: greyColor,
+                        //     prefixIcon: Icons.air,
+                        //     hintText: 'Subject division',
+                        //   ),
+                        // ),
+                        // const SizedBox(height: 16),
+                        const SizedBox(height: 12),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * .3,
+                          height: 40,
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: DefaultButtonLecturer(
+                                  text: 'Save',
+                                  onPressed: () async {
+                                    if (formKey.value.currentState!
+                                        .validate()) {
+                                      final subject = await state.createSubject(
+                                        lecturerId:
+                                            authLecturer.lecturerModel!.id!,
+                                        lecturerName: authLecturer
+                                            .lecturerModel!.fullName,
+                                        name: subjectNameCtrl.value.text,
+                                        grade: subjectGradeCtrl.value.text,
+                                        devision: subjectGradeCtrl.value.text,
+                                      );
+                                      final lecture = await state.createLecture(
+                                        lecturerId:
+                                            authLecturer.lecturerModel!.id!,
+                                        lectureId: lectureIdCtrl.value.text,
+                                        name: lectureNameCtrl.value.text,
+                                        lecturer: authLecturer
+                                            .lecturerModel!.fullName!,
+                                        totalStudents:
+                                            totalNumStudentCtrl.value.text,
+                                      );
+
+                                      subject != null && lecture != null
+                                          ? showToast(
+                                              state: ToastStates.SUCCESS,
+                                              message: 'You all set')
+                                          : false;
+                                    }
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

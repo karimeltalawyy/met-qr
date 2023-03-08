@@ -10,20 +10,15 @@ class CalenderWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final events = Provider.of<SessionProvider>(context).events;
+    // final events = Provider.of<SessionProvider>(context).events;
     return SfCalendar(
       view: CalendarView.week,
       firstDayOfWeek: 6,
       initialDisplayDate: DateTime.now(),
-      initialSelectedDate:  DateTime.now(),
-      dataSource: EventDataSource(events),
+      initialSelectedDate: DateTime.now(),
+      // dataSource: EventDataSource(events),
       onLongPress: (details) {
         final provider = Provider.of<SessionProvider>(context, listen: false);
-        provider.setDate(details.date!);
-        showModalBottomSheet(
-          context: context,
-          builder: (context) => const TaskWidget(),
-        );
       },
     );
   }

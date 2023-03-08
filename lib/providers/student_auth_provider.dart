@@ -86,7 +86,7 @@ class StudentAuthProvider extends ChangeNotifier {
 
       if (credential.user != null) {
         await createStudent(
-          phone: phone ?? '01232323',
+          phone: phone ,
           fullName: fullName,
           email: email,
           image: image ?? '',
@@ -124,7 +124,7 @@ class StudentAuthProvider extends ChangeNotifier {
       gender: gender ?? 'Male',
       lectures: lectures ?? <Lecture>[],
       placeOfBirth: placeOfBirth ?? '',
-      universityCode: universityCode ?? '1235467',
+      universityCode: universityCode ,
     );
     studentDoc.set(student.toJson());
   }

@@ -8,33 +8,52 @@ String sessionToJson(Session data) => json.encode(data.toJson());
 
 class Session {
   Session({
-    required this.subject,
+   this.subject,
     required this.lecturerId,
-    required this.lecturerName,
-    required this.assignedStudentsIds,
-    required this.datesString,
-    required this.dates,
-    required this.attendances,
+     this.lecturerName,
+     this.assignedStudentsIds,
+     this.datesString,
+     this.dates,
+     this.attendances,
+     this.fromDate,
+     this.toDate,
+     this.fromTime,
+     this.toTime,
+      this.isRepeated,
   });
 
   List<Subject>? subject;
-  String lecturerId;
-  String lecturerName;
-  List<String> assignedStudentsIds;
-  String datesString;
-  List<String> dates;
-  List<Attendance> attendances;
+  String? lecturerId;
+  String? lecturerName;
+  List<String>? assignedStudentsIds;
+  String? datesString;
+  List<String>? dates;
+  String? fromDate;
+  String? toDate;
+  String? fromTime;
+  String? toTime;
+  bool? isRepeated;
+  List<Attendance>? attendances;
 
-  Session copyWith({
-    List<Subject>? subject,
-    String? lecturerId,
-    String? lecturerName,
-    List<String>? assignedStudentsIds,
-    String? datesString,
-    List<String>? dates,
-    List<Attendance>? attendances,
-  }) =>
+  Session copyWith(
+          {List<Subject>? subject,
+          String? lecturerId,
+          String? lecturerName,
+          List<String>? assignedStudentsIds,
+          String? datesString,
+          List<String>? dates,
+          List<Attendance>? attendances,
+          String? fromDate,
+          String? toDate,
+          String? fromTime,
+          String? toTime,
+          bool? isRepeated}) =>
       Session(
+        isRepeated: isRepeated ?? this.isRepeated,
+        fromDate: fromDate ?? this.fromDate,
+        toDate: toDate ?? this.toDate,
+        fromTime: fromTime ?? this.fromTime,
+        toTime: toTime ?? this.toTime,
         subject: subject ?? this.subject,
         lecturerId: lecturerId ?? this.lecturerId,
         lecturerName: lecturerName ?? this.lecturerName,
@@ -51,6 +70,11 @@ class Session {
             : [],
         lecturerId: json["lecturerId"],
         lecturerName: json["lecturerName"],
+        fromDate: json["fromDate"],
+        toDate: json["toDate"],
+        fromTime: json["fromTime"],
+        toTime: json["toTime"],
+        isRepeated: json["isRepeated"],
         assignedStudentsIds:
             List<String>.from(json["assignedStudentsIds"].map((x) => x)),
         datesString: json["datesString"],
@@ -62,14 +86,19 @@ class Session {
       );
 
   Map<String, dynamic> toJson() => {
+        "fromDate": fromDate,
+        "toDate": toDate,
+        "fromTime": fromTime,
+        "toTime": toTime,
+        "isRepeated": isRepeated,
         "subject": List<dynamic>.from(subject!.map((x) => x.toJson())),
         "lecturerId": lecturerId,
         "lecturerName": lecturerName,
         "assignedStudentsIds":
-            List<dynamic>.from(assignedStudentsIds.map((x) => x)),
+            List<dynamic>.from(assignedStudentsIds!.map((x) => x)),
         "datesString": datesString,
-        "dates": List<dynamic>.from(dates.map((x) => x)),
-        "attendances": List<dynamic>.from(attendances.map((x) => x.toJson())),
+        "dates": List<dynamic>.from(dates!.map((x) => x)),
+        "attendances": List<dynamic>.from(attendances!.map((x) => x.toJson())),
       };
 }
 

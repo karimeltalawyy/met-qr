@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:metqr/shared/component/constants/constants.dart';
 import 'package:metqr/shared/component/responsiveness.dart';
 import 'package:metqr/shared/component/top_navbar.dart';
-import 'package:metqr/widgets/defaultButton.dart';
 import 'package:metqr/widgets/desktop/large_screen.dart';
 import 'package:metqr/widgets/desktop/small_screen.dart';
 

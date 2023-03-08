@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../layout/cubit/cubit.dart';
 import '../../../layout/cubit/states.dart';
@@ -13,6 +14,16 @@ class ScheduleScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        titleSpacing: basePadding,
+        backgroundColor: surfaceColor,
+        centerTitle: false,
+        title: SvgPicture.asset(
+          'assets/images/logo.svg',
+          height: 20,
+          width: 20,
+        ),
+      ),
       backgroundColor: surfaceColor,
       body: Padding(
         padding: const EdgeInsets.all(basePadding),

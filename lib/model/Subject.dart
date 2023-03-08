@@ -20,14 +20,14 @@ class Subject {
   String name;
   String lecturerId;
   String lecturerName;
-  int grade;
+  String grade;
   String devision;
 
   Subject copyWith({
     String? name,
     String? lecturerId,
     String? lecturerName,
-    int? grade,
+    String? grade,
     String? devision,
   }) =>
       Subject(
